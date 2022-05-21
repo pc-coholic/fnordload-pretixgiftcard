@@ -15,6 +15,7 @@ class LCD(object):
         self.__lcd.write(line2, 0, 1)
         self.__lcd.write(line3, 0, 2)
         self.__lcd.write(line4, 0, 3)
+        self.backlight_on()
 
         self._logger.info('{} | {} | {} | {} '.format(line1, line2, line3, line4))
 
