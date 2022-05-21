@@ -7,7 +7,7 @@ class VKP80(object):
     def __init__(self, printername):
         self.printername = printername
 
-    def print_gifcard(self, ordercode, secret, amount):
+    def print_giftcard(self, ordercode, secret, amount):
         p = File('/tmp/fnordload_giftcard')
         p.textln("Order Code: {}".format(ordercode))
         p.textln("Secret: {}".format(secret))
@@ -17,5 +17,6 @@ class VKP80(object):
         p.control('FF')
 
         subprocess.check_call(
-            ['lpr', '-P', 'VKP80', '/tmp/fnordload_giftcard']
+            #['lpr', '-P', 'VKP80', '/tmp/fnordload_giftcard']
+            ['lp', '-d', 'VKP80', '/tmp/fnordload_giftcard']
         )

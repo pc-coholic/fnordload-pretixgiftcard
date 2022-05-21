@@ -48,7 +48,7 @@ class Fnordload(object):
             if state == 'confirmed':
                 secret = self._pretix.get_secret(self._order_code)
                 print('Giftcard secret for order {}: {}'.format(self._order_code, secret))
-                self._printer.print_gifcard(self._order_code, secret, amount)
+                self._printer.print_giftcard(self._order_code, secret, amount)
                 self.cleanup()
         except fnordload.InvalidNoteError:
             self._lcd.rejected_note()
