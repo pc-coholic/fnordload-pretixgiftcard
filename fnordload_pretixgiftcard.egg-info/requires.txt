@@ -1,0 +1,5 @@
+pyserial
+eSSP@ git+https://github.com/pc-coholic/eSSP@py3
+lcd2usb
+requests
+python-escpos@ git+https://github.com/python-escpos/python-escpos.git@master#egg=python-escpos

@@ -1,0 +1,12 @@
+setup.py
+fnordload_pretixgiftcard/__init__.py
+fnordload_pretixgiftcard/lcd.py
+fnordload_pretixgiftcard/note_validator.py
+fnordload_pretixgiftcard/pretixAPI.py
+fnordload_pretixgiftcard/vkp80.py
+fnordload_pretixgiftcard.egg-info/PKG-INFO
+fnordload_pretixgiftcard.egg-info/SOURCES.txt
+fnordload_pretixgiftcard.egg-info/dependency_links.txt
+fnordload_pretixgiftcard.egg-info/requires.txt
+fnordload_pretixgiftcard.egg-info/top_level.txt
+scripts/fnordload.py
