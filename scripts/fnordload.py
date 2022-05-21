@@ -9,8 +9,9 @@ import fnordload_pretixgiftcard as fnordload
 
 class Fnordload(object):
     def __init__(self, eSSPport="/dev/ttyACM0"):
-        if len(sys.argv < 7):
+        if len(sys.argv) < 7:
             print("fnordload.py etc/logging.ini https://pretix.eu 12345token67890 organizer event 123")
+            sys.exit()
         self._logger = logging.getLogger(__name__)
         self._lcd = fnordload.LCD()
         self._pretix = fnordload.pretixAPI(
