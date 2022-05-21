@@ -7,6 +7,7 @@ class LCD(object):
         self._logger = logging.getLogger(__name__)
         self.__lcd = LCDServer.find_or_die()
         self.__lcd.clear()
+        self.backlight_on()
 
     def write(self, line1="", line2="", line3="", line4=""):
         self.__lcd.clear()
@@ -36,10 +37,10 @@ class LCD(object):
 
     def out_of_order(self):
         self.write("Sorry!","Fnordload is currently", "out of order.", "             The MGT")
-        self.backlight_off()
+        #self.backlight_off()
 
     def reading_note(self, value=0):
-        self.backlight_off()
+        #self.backlight_off()
 
         if value == 0:
             self.write("Reading note...")
