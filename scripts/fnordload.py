@@ -43,13 +43,20 @@ class Fnordload(object):
             )
             self._lcd.payout_in_progress()
             print('Converting {} to voucher with cart_id {}'.format(amount, self._order_code))
-            state = self._pretix.mark_order_as_paid(self._order_code)
-            print('Payment state for order {}: {}'.format(self._order_code, state))
-            if state == 'confirmed':
-                secret = self._pretix.get_secret(self._order_code)
-                print('Giftcard secret for order {}: {}'.format(self._order_code, secret))
-                self._printer.print_giftcard(self._order_code, secret, amount)
+            try:
+                state = self._pretix.mark_order_as_paid(self._order_code)
+                print('Payment state for order {}: {}'.format(self._order_code, state))
+                if state == 'confirmed':
+                    secret = self._pretix.get_secret(self._order_code)
+                    print('Giftcard secret for order {}: {}'.format(self._order_code, secret))
+                    self._printer.print_giftcard(self._order_code, secret, amount)
+                else:
+                    self._printer.print_failure(self._order_code)
+            except:
+                self._printer.print_failure(self._order_code)
+            finally:
                 self.cleanup()
+
         except fnordload.InvalidNoteError:
             self._lcd.rejected_note()
             self.cleanup()
@@ -64,16 +71,20 @@ class Fnordload(object):
         self._order_created = False
 
     def noteread_callback(self, value):
+        # Processed, Success
         if not self._order_creation_in_progress:
             self._order_creation_in_progress = True
             self._lcd.reading_note(value)
-            self.create_cart(value)
-            return False
+            try:
+                self.create_cart(value)
+            except:
+                return True, False
+            return False, False
         else:
             if self._order_created:
-                return True
+                return True, True
 
-        return False
+        return False, False
 
     def create_cart(self, value):
         self._order_code = self._pretix.create_order(value)

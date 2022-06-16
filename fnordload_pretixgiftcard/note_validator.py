@@ -41,10 +41,12 @@ class NoteValidator(object):
                 if poll[1][1] == 0:
                     think_callback()
                 else:
-                    processed = bill_in_callback(self._channelvalues[poll[1][1] - 1])
+                    processed, success = bill_in_callback(self._channelvalues[poll[1][1] - 1])
                     while not processed:
                         self._eSSP.hold()
-                        processed = bill_in_callback(self._channelvalues[poll[1][1] - 1])
+                        processed, success = bill_in_callback(self._channelvalues[poll[1][1] - 1])
+                    if processed and not success:
+                        self._eSSP.reject_note()
             elif len(poll) > 1 and len(poll[1]) == 2 and poll[1][0] == '0xee':
                 self._logger.debug("read_note:73 with self._essp_lock")
                 self._eSSP.disable()
